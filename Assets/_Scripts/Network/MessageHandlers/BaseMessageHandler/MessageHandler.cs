@@ -1,4 +1,4 @@
-﻿using Assets._Scripts.Network.Enum;
+﻿using KnjiznicarDataModel.Enum;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;

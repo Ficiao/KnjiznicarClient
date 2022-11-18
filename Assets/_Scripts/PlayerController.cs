@@ -1,5 +1,5 @@
 ﻿using Assets._Scripts.Network;
-using Assets._Scripts.Network.Message;
+using KnjiznicarDataModel.Message;
 using UnityEngine;
 
 namespace Assets._Scripts

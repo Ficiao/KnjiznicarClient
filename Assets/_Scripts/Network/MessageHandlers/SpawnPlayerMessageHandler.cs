@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using System;
-using Assets._Scripts.Network.Message;
-using Assets._Scripts.Scriptables;
+using KnjiznicarDataModel.Message;
 
 namespace Assets._Scripts.Network.MessageHandlers
 {

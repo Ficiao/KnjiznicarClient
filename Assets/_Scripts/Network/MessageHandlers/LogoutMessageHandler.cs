@@ -1,4 +1,4 @@
-﻿using Assets._Scripts.Network.Message;
+﻿using KnjiznicarDataModel.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

@@ -1,4 +1,4 @@
-﻿using Assets._Scripts;
+﻿using KnjiznicarDataModel;
 using System.Collections.Generic;
 
 class GlobalPlayerData : SingletonPersistent<GlobalPlayerData>

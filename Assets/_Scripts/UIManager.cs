@@ -1,13 +1,10 @@
 using Assets._Scripts.Network;
-using Assets._Scripts.Network.Message;
-using System;
+using KnjiznicarDataModel.Message;
 using System.Collections;
-using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -107,7 +104,11 @@ public class UIManager : Singleton<UIManager>
 
     private void SendRegisterRequest()
     {
-        RegisterMessage message = new RegisterMessage(_usernameInputField.text, _passwordInputField.text);
+        RegisterMessage message = new RegisterMessage()
+        {
+            username = _usernameInputField.text,
+            passwordHash = GetHashString(_passwordInputField.text),
+        };
         ClientSend.SendTCPData(message, Client.Instance.LoginServer);
     }
 

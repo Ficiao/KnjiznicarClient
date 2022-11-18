@@ -1,5 +1,5 @@
-﻿using Assets._Scripts.Network.Enum;
-using Assets._Scripts.Network.Message;
+﻿using KnjiznicarDataModel.Enum;
+using KnjiznicarDataModel.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
 using System;

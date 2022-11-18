@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using Assets._Scripts.Network.Message;
+using KnjiznicarDataModel.Message;
 using System;
 using UnityEngine;
 
