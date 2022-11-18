@@ -1,0 +1,3 @@
+[submodule "Assets/_Scripts/KnjiznicarDataModel"]
+	path = Assets/_Scripts/KnjiznicarDataModel
+	url = https://github.com/Ficiao/KnjiznicarDataModel.git
