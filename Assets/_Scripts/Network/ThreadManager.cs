@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets._Scripts.Network
+namespace Network
 {
     class ThreadManager : MonoBehaviour
     {

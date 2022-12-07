@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using KnjiznicarDataModel.Message;
+using Global;
 
-namespace Assets._Scripts.Network.MessageHandlers
+namespace Network.MessageHandlers
 {
     class SpawnPlayerMessageHandler : BaseMessageHandler
     {
@@ -10,7 +11,7 @@ namespace Assets._Scripts.Network.MessageHandlers
         {
             SpawnPlayerMessage message = JsonConvert.DeserializeObject<SpawnPlayerMessage>(dataJsonObject.ToString());
 
-            GameManager.Instance.SpawnPlayer(message.playerId, message.playerUsername);
+            GlobalGameManager.Instance.SpawnPlayer(message.playerId, message.playerUsername);
         }
     }
 }

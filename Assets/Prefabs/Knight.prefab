@@ -773,6 +773,7 @@ GameObject:
   - component: {fileID: 1431759201146385061}
   - component: {fileID: 386091695586756305}
   - component: {fileID: 1773975824672541489}
+  - component: {fileID: 6257528002124796578}
   m_Layer: 0
   m_Name: Knight
   m_TagString: Untagged
@@ -831,6 +832,18 @@ CapsuleCollider:
   m_Height: 7.3117976
   m_Direction: 1
   m_Center: {x: 0.5180037, y: 3.5542524, z: 0.70133847}
+--- !u!114 &6257528002124796578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571688685490100180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cea50de21d6bbd4286edf84984426a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5610804245299349535
 GameObject:
   m_ObjectHideFlags: 0

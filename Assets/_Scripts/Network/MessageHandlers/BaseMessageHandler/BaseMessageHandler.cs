@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace Assets._Scripts.Network.MessageHandlers
+namespace Network.MessageHandlers
 {
     public abstract class BaseMessageHandler
     {

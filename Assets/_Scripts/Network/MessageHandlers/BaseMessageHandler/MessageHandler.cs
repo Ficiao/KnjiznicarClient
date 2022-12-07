@@ -2,8 +2,9 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets._Scripts.Network.MessageHandlers
+namespace Network.MessageHandlers
 {
     class MessageHandler : SingletonPersistent<MessageHandler>
     {
@@ -14,12 +15,21 @@ namespace Assets._Scripts.Network.MessageHandlers
             { MessageType.Logout, new LogoutMessageHandler() },
             { MessageType.PlayerCoordinates, new PlayerCoordinatesMessageHandler() },
             { MessageType.SpawnPlayer, new SpawnPlayerMessageHandler() },
+            { MessageType.Error, new ErrorMessageHandler() },
+            { MessageType.UdpConnect, new UdpConnectHandler() },
         };
 
         public void HandleMessage(JObject dataJsonObject)
         {
-            MessageType messageType = (MessageType)Int32.Parse(dataJsonObject["messageType"].ToString());
-            _messageHandlers[messageType].HandleMessage(dataJsonObject);
+            try
+            {
+                MessageType messageType = (MessageType)Int32.Parse(dataJsonObject["messageType"].ToString());
+                _messageHandlers[messageType].HandleMessage(dataJsonObject);
+            }
+            catch(Exception ex)
+            {
+                Debug.Log($"Error processing message: {ex}");
+            }
         }
     }
 }

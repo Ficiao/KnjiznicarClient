@@ -1,5 +1,5 @@
 ﻿using KnjiznicarDataModel.Message;
-using Assets._Scripts.Network.MessageHandlers;
+using Network.MessageHandlers;
 using Newtonsoft.Json.Bson;
 using Newtonsoft.Json.Linq;
 using System;
@@ -7,7 +7,7 @@ using System.IO;
 using System.Net.Sockets;
 using UnityEngine;
 
-namespace Assets._Scripts.Network
+namespace Network
 {
     public class TCP
     {
@@ -61,7 +61,7 @@ namespace Assets._Scripts.Network
                 int byteLength = _stream.EndRead(ar);
                 if (byteLength <= 0)
                 {
-                    Client.Instance.Disconnect();
+                    _server.Disconnect(true);
                     return;
                 }
 
@@ -83,7 +83,7 @@ namespace Assets._Scripts.Network
             catch (Exception ex)
             {
                 Debug.Log(ex.Message);
-                Client.Instance.Disconnect();
+                _server.Disconnect(true);
             }
         }
 
@@ -99,7 +99,7 @@ namespace Assets._Scripts.Network
             catch (Exception ex)
             {
                 Console.WriteLine($"Error whiel sending data to server via TCP: {ex}");
-                Client.Instance.Disconnect();
+                _server.Disconnect(true);
             }
         }
 
@@ -110,12 +110,5 @@ namespace Assets._Scripts.Network
             _recieveBuffer = null;
             Socket = null;
         }
-
-        //private bool HandleData(byte[] data)
-        //{
-        //    int messageLength = 0;
-
-
-        //}
     }
 }

@@ -1,8 +1,10 @@
 ﻿using KnjiznicarDataModel.Message;
+using Login;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Global;
 
-namespace Assets._Scripts.Network.MessageHandlers
+namespace Network.MessageHandlers
 {
     class LoginSuccessfulMessageHandler : BaseMessageHandler
     {
@@ -10,28 +12,17 @@ namespace Assets._Scripts.Network.MessageHandlers
         {
             LoginSuccessfulMessage message = JsonConvert.DeserializeObject<LoginSuccessfulMessage>(dataJsonObject.ToString());
 
-            if (message.loginSuccessful)
+            if (message.loginSuccessful && message.isLogin)
             {
                 Client.Instance.ConnectToWorldServer(message.overworldIp, message.overworldPort);
 
-                GlobalPlayerData.Instance.username = message.playerData.username;
-                GlobalPlayerData.Instance.playerId = message.playerData.playerId;
-                GlobalPlayerData.Instance.level = message.playerData.level;
-                GlobalPlayerData.Instance.items = message.playerData.items;
-                GlobalPlayerData.Instance.adventureLevel = message.playerData.adventureLevel;
-                GlobalPlayerData.Instance.pvpPoints = message.playerData.pvpPoints;
-                UIManager.Instance.LoggedIn(message.playerData.username);
+                GlobalPlayerData.Instance.PlayerData = message.playerData;
+                UIManager.Instance.LoggedIn();
+                Client.LoginServer.Disconnect(false);
             }
-            else
+            else if (message.loginSuccessful)
             {
-                if (message.isLogin)
-                {
-                    UIManager.Instance.ShowNotification("Login unssucessful, wrong credentials.");
-                }
-                else
-                {
-                    UIManager.Instance.ShowNotification("Register unssucessful, username already taken.");
-                }
+                UIManager.Instance.ShowNameSelection(message.username);
             }
         }
     }

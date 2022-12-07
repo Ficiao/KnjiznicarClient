@@ -1,8 +1,9 @@
-﻿using KnjiznicarDataModel.Message;
+﻿using Global;
+using KnjiznicarDataModel.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Assets._Scripts.Network.MessageHandlers
+namespace Network.MessageHandlers
 {
     class LogoutMessageHandler : BaseMessageHandler
     {
@@ -12,17 +13,19 @@ namespace Assets._Scripts.Network.MessageHandlers
 
             if (message.responseNeeded)
             {
-                ClientSend.SendTCPData(new LogoutMessage(false), Client.Instance.LoginServer);
+                ClientSend.SendTCPData(new LogoutMessage(false), Client.OverworldServer);
+            }
+            else
+            {
+                Client.Instance.DisconnectAll(true);
             }
 
-            Client.Instance.Disconnect();
-
-            GlobalPlayerData.Instance.username = "";
-            GlobalPlayerData.Instance.playerId = -1;
-            GlobalPlayerData.Instance.level = -1;
-            GlobalPlayerData.Instance.items = null;
-            GlobalPlayerData.Instance.adventureLevel = -1;
-            GlobalPlayerData.Instance.pvpPoints = -1;
+            GlobalPlayerData.Instance.PlayerData.playerName = "";
+            GlobalPlayerData.Instance.PlayerData.playerId = "";
+            GlobalPlayerData.Instance.PlayerData.level = -1;
+            GlobalPlayerData.Instance.PlayerData.items = null;
+            GlobalPlayerData.Instance.PlayerData.adventureLevel = -1;
+            GlobalPlayerData.Instance.PlayerData.pvpPoints = -1;
         }
     }
 }

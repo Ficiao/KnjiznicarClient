@@ -1,45 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 using UnityEngine;
 
-namespace Assets._Scripts.Network
+namespace Network
 {
     public class Server
     {
         private bool _isConected = false;
+        private Action _logoutAction;
 
         public static int DataBufferSize = 4096;
         public string Ip;
         public int Port;
         public TCP Tcp;
+        public UDP Udp;
 
         public bool IsConnected { get => _isConected; set => _isConected = value; }
 
-        public Server(string ip, int port)
+        public Server(string ip, int port, Action logoutAction, bool hasUdp)
         {
+            Ip = ip;
+            Port = port;
             Tcp = new TCP(DataBufferSize, this);
-            this.Ip = ip;
-            this.Port = port;
+            if (hasUdp) Udp = new UDP(this);
+            _logoutAction = logoutAction;
         }
 
         internal void ConnectToServer(Action callback)
         {
             if (_isConected) return;
-            Tcp.Connect(callback);
+            Tcp.Connect(() =>
+            {
+                Udp?.Connect(((IPEndPoint)Tcp.Socket.Client.LocalEndPoint).Port);
+                callback?.Invoke();
+            });
         }
 
-        public void Disconnect()
+        public void Disconnect(bool isLogout)
         {
             if (_isConected == false) return;
             _isConected = false;
             Debug.Log($"Disconnected from server.");
 
-            Tcp.Disconnect();
+            Tcp?.Disconnect();
+            Udp?.Disconnect();
 
-            ThreadManager.ExecuteOnMainThread(() => UIManager.Instance.LoggedOut());
+            if (isLogout == false) return;
+            try
+            {
+                ThreadManager.ExecuteOnMainThread(() => _logoutAction?.Invoke());
+            }
+            catch(Exception ex)
+            {
+                Debug.Log($"Message while executing async action on main thread: {ex}");
+            }
         }
     }
 }

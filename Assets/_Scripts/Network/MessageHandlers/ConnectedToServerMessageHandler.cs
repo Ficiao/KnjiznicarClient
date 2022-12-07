@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine;
 
-namespace Assets._Scripts.Network.MessageHandlers
+namespace Network.MessageHandlers
 {
     class ConnectedToServerMessageHandler : BaseMessageHandler
     {
@@ -11,7 +11,6 @@ namespace Assets._Scripts.Network.MessageHandlers
         {
             ConnectedToServerMessage message = JsonConvert.DeserializeObject<ConnectedToServerMessage>(dataJsonObject.ToString());
             Debug.Log(message.welcomeMessage);
-            GlobalPlayerData.Instance.playerId = message.playerId;
         }
     }
 }
