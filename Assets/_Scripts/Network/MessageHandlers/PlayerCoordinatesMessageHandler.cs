@@ -20,21 +20,21 @@ namespace Network.MessageHandlers
                 try
                 {
                     Vector3 position = new Vector3(coordinates.position[0], coordinates.position[1], coordinates.position[2]);
-                    if (coordinates.playerId == GlobalPlayerData.Instance.PlayerData.playerId)
+                    if (coordinates.playerUsername == GlobalPlayerData.Instance.PlayerData.playerName)
                     {
-                        GameManager.Instance.Players[coordinates.playerId].NextPosition(position, 
+                        GameManager.Instance.Players[coordinates.playerUsername].NextPosition(position, 
                             coordinates.leftRightDirection, coordinates.forwardDirection, coordinates.grounded);
                     }
                     else
                     {
                         Vector3 rotation = new Vector3(coordinates.rotation[0], coordinates.rotation[1], coordinates.rotation[2]);
-                        GameManager.Instance.Players[coordinates.playerId].NextPosition(position, rotation,
+                        GameManager.Instance.Players[coordinates.playerUsername].NextPosition(position, rotation,
                             coordinates.leftRightDirection, coordinates.forwardDirection, coordinates.grounded);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log($"Trying to update position for id {coordinates.playerId} that does not exist: {ex}");
+                    Debug.Log($"Trying to update position for id {coordinates.playerUsername} that does not exist: {ex}");
                 }
             } 
         }

@@ -15,10 +15,12 @@ namespace Overworld
         private bool _bothMouseButtons;
         private Vector3 _rotation;
 
+        public bool DisableCameraMovement;
+
         private void Start()
         {
             base.Start();
-            CameraController.Instance.Init(_cameraEndTarget, _cameraStartTarget);
+            CameraController.Instance.Init(_cameraEndTarget, _cameraStartTarget, this);
             _rotation = new Vector3(0, 0, 0);
         }
 
@@ -26,11 +28,11 @@ namespace Overworld
         {
             base.Update();
 
-            //if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
-            //{
-            //    _rotation.y = transform.localEulerAngles.y - Input.GetAxis("Mouse X") * _angularSpeed * Time.deltaTime;
-            //    transform.localEulerAngles = _rotation;
-            //}
+            if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1)) && DisableCameraMovement == false)
+            {
+                _rotation.y = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * _angularSpeed * Time.deltaTime;
+                transform.localEulerAngles = _rotation;
+            }
             _bothMouseButtons = Input.GetKey(KeyCode.Mouse0) && Input.GetKey(KeyCode.Mouse1);
 
             _sendLeftRightDirection = (Input.GetKey(KeyCode.A) ? -1 : 0) + (Input.GetKey(KeyCode.D) ? 1 : 0);

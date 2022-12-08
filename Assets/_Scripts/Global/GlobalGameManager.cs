@@ -9,7 +9,7 @@ namespace Global
 {
     class GlobalGameManager : SingletonPersistent<GlobalGameManager>
     {
-        private List<(string, string)> _spawnCache;
+        private List<string> _spawnCache;
         private Server _currentServer;
         Ping ping;
         private IEnumerator _pinger;
@@ -20,7 +20,7 @@ namespace Global
         private void Awake()
         {
             base.Awake();
-            _spawnCache = new List<(string, string)>();
+            _spawnCache = new List<string>();
             SceneManager.sceneLoaded += OnSceneLoaded;
             _currentServer = Server.Login;
             _pinger = PingUpdate();
@@ -48,15 +48,15 @@ namespace Global
             }
         }
 
-        public void SpawnPlayer(string id, string playerName)
+        public void SpawnPlayer(string playerName)
         {
-            if (Overworld.GameManager.Instance == null) _spawnCache.Add((id, playerName));
-            else Overworld.GameManager.Instance.SpawnPlayer(id, playerName);
+            if (Overworld.GameManager.Instance == null) _spawnCache.Add(playerName);
+            else Overworld.GameManager.Instance.SpawnPlayer(playerName);
         }
 
         private void OverworldLoaded()
         {
-            _spawnCache.ForEach(s => Overworld.GameManager.Instance.SpawnPlayer(s.Item1, s.Item2));
+            _spawnCache.ForEach(s => Overworld.GameManager.Instance.SpawnPlayer(s));
             _spawnCache.Clear();
         }
 

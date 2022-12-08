@@ -11,7 +11,7 @@ namespace Network.MessageHandlers
         {
             SpawnPlayerMessage message = JsonConvert.DeserializeObject<SpawnPlayerMessage>(dataJsonObject.ToString());
 
-            GlobalGameManager.Instance.SpawnPlayer(message.playerId, message.playerUsername);
+            GlobalGameManager.Instance.SpawnPlayer(message.playerUsername);
         }
     }
 }

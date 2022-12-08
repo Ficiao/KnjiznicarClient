@@ -17,21 +17,21 @@ namespace Overworld
             base.Awake();
             Players = new Dictionary<string, PlayerController>();
         }
-        public void SpawnPlayer(string id, string playerName)
+        public void SpawnPlayer(string playerName)
         {
-            if(id == GlobalPlayerData.Instance.PlayerData.playerId)
+            if(playerName == GlobalPlayerData.Instance.PlayerData.playerName)
             {
                 Player = Instantiate(PrefabsScriptable.Instance.GetPrefab("Player")).GetComponent<UserController>();
                 PlayerController playerManager = Player.GetComponent<PlayerController>();
                 playerManager.PlayerName = playerName;
-                Players.Add(id, playerManager);
+                Players.Add(playerName, playerManager);
                 _camera.transform.parent = playerManager.transform;
             }
             else
             {
                 PlayerController playerManager = Instantiate(PrefabsScriptable.Instance.GetPrefab("OtherPlayer")).GetComponent<PlayerController>();
                 playerManager.PlayerName = playerName;
-                Players.Add(id, playerManager);
+                Players.Add(playerName, playerManager);
             }
         }
     }
