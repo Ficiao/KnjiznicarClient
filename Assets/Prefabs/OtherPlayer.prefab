@@ -618,6 +618,7 @@ GameObject:
   - component: {fileID: 5944713768662763556}
   - component: {fileID: 8757106913902797418}
   - component: {fileID: 3091177103504615369}
+  - component: {fileID: 2496067987760267214}
   m_Layer: 7
   m_Name: OtherPlayer
   m_TagString: Untagged
@@ -675,6 +676,22 @@ MonoBehaviour:
   _playerNameText: {fileID: 3362957752567858862}
   _animator: {fileID: 5944713769141048366}
   _characterController: {fileID: 8757106913902797418}
+--- !u!54 &2496067987760267214
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944713768662763557}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 64
+  m_CollisionDetection: 0
 --- !u!1 &5944713768843726019
 GameObject:
   m_ObjectHideFlags: 0

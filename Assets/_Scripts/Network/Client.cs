@@ -5,6 +5,9 @@ namespace Network
 {
     public class Client : SingletonPersistent<Client>
     {
+        [SerializeField] private string _loginIp;
+
+        public static string SessionId;
         public static Server LoginServer { get; private set; }
         public static Server OverworldServer{ get; private set; }
         public static Server InstanceServer { get; private set; }
@@ -12,7 +15,9 @@ namespace Network
         private void Start()
         {
             //LoginServer = new Server("192.168.0.15", 26950);
-            LoginServer = new Server("127.0.0.1", 26950, null, false);
+            //LoginServer = new Server("127.0.0.1", 26950, null, false);
+            //LoginServer = new Server("159.223.16.231", 26950, null, false);
+            LoginServer = new Server(_loginIp, 26950, null, false);
         }
 
         private void OnApplicationQuit()

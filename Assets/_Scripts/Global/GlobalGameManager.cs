@@ -1,4 +1,5 @@
 ﻿using Enum;
+using KnjiznicarDataModel.Enum;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,19 +11,21 @@ namespace Global
     class GlobalGameManager : SingletonPersistent<GlobalGameManager>
     {
         private List<string> _spawnCache;
-        private Server _currentServer;
+        private List<string> _despawnCache;
+        private ServerType _currentServer;
         Ping ping;
         private IEnumerator _pinger;
 
-        public Server Server { get => _currentServer; }
+        public ServerType Server { get => _currentServer; }
         public string PingIp;
 
         private void Awake()
         {
             base.Awake();
             _spawnCache = new List<string>();
+            _despawnCache = new List<string>();
             SceneManager.sceneLoaded += OnSceneLoaded;
-            _currentServer = Server.Login;
+            _currentServer = ServerType.Login;
             _pinger = PingUpdate();
         }
 
@@ -31,16 +34,16 @@ namespace Global
             switch (scene.name)
             {
                 case "LoginScreen":
-                    _currentServer = Server.Login;
+                    _currentServer = ServerType.Login;
                     StopCoroutine(_pinger);
                     break;
                 case "Overworld":
-                    _currentServer = Server.Overworld;
+                    _currentServer = ServerType.Overworld;
                     OverworldLoaded();
                     StartCoroutine(_pinger);
                     break;
                 case "Instance":
-                    _currentServer = Server.Instance;
+                    _currentServer = ServerType.Instance;
                     InstanceLoaded();
                     break;
                 default:
@@ -54,10 +57,18 @@ namespace Global
             else Overworld.GameManager.Instance.SpawnPlayer(playerName);
         }
 
+        public void DespawnPlayer(string playerName)
+        {
+            if (Overworld.GameManager.Instance == null) _despawnCache.Add(playerName);
+            else Overworld.GameManager.Instance.DespawnPlayer(playerName);
+        }
+
         private void OverworldLoaded()
         {
             _spawnCache.ForEach(s => Overworld.GameManager.Instance.SpawnPlayer(s));
-            _spawnCache.Clear();
+            _spawnCache.Clear();      
+            _despawnCache.ForEach(s => Overworld.GameManager.Instance.DespawnPlayer(s));
+            _despawnCache.Clear();
         }
 
         private void InstanceLoaded()
@@ -73,12 +84,12 @@ namespace Global
                 while (!ping.isDone) yield return null;
                 switch (_currentServer)
                 {
-                    case Server.Login:
+                    case ServerType.Login:
                         break;
-                    case Server.Overworld:
+                    case ServerType.Overworld:
                         Overworld.UIManager.Instance.SetPingTime(ping.time);
                         break;
-                    case Server.Instance:
+                    case ServerType.Instance:
                         break;
                     default:
                         break;

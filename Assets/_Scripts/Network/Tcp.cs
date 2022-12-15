@@ -43,7 +43,7 @@ namespace Network
         {
             if (Socket.Connected == false)
             {
-                Debug.Log("Server is offline.");
+                Login.UIManager.Instance.ShowNotification("Server is offline.");
                 return;
             }
 

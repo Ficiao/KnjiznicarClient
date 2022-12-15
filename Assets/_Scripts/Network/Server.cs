@@ -29,11 +29,7 @@ namespace Network
         internal void ConnectToServer(Action callback)
         {
             if (_isConected) return;
-            Tcp.Connect(() =>
-            {
-                Udp?.Connect(((IPEndPoint)Tcp.Socket.Client.LocalEndPoint).Port);
-                callback?.Invoke();
-            });
+            Tcp.Connect(() => callback?.Invoke());
         }
 
         public void Disconnect(bool isLogout)

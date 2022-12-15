@@ -17,6 +17,8 @@ namespace Network.MessageHandlers
             { MessageType.SpawnPlayer, new SpawnPlayerMessageHandler() },
             { MessageType.Error, new ErrorMessageHandler() },
             { MessageType.UdpConnect, new UdpConnectHandler() },
+            { MessageType.DespawnPlayer, new DespawnPlayerMessageHandler() },
+            { MessageType.SpawnPlayers, new SpawnPlayersMessageHandler() },
         };
 
         public void HandleMessage(JObject dataJsonObject)

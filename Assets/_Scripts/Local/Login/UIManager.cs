@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System;
 
 namespace Login
 {
@@ -37,8 +38,12 @@ namespace Login
 
         public void ShowNotification(string notification)
         {
-            _notification.gameObject.SetActive(true);
-            _notification.text = notification;
+            ThreadManager.ExecuteOnMainThread(() => 
+            {
+                EnableButtons(true);
+                _notification.gameObject.SetActive(true);
+                _notification.text = notification;
+            });
         }
 
         public void LoggedIn()
@@ -54,12 +59,21 @@ namespace Login
                 ShowNotification("Please write your username and password.");
                 return;
             }
+
+            EnableButtons(false);
             if (Client.LoginServer.IsConnected) SendLoginRequest();
             else Client.LoginServer.ConnectToServer(SendLoginRequest);
         }
 
         private void RegisterRequest()
         {
+            if (_usernameInputField.text.Count(c => !char.IsLetterOrDigit(c)) > 0 || _usernameInputField.text.Length < _minUsernameLength
+                   || _passwordInputField.text.Count(c => !char.IsLetterOrDigit(c)) > 0 || _passwordInputField.text.Length < _minPasswordLength)
+            {
+                ShowNotification("Please write your username and password.");
+                return;
+            }
+            EnableButtons(false);
             if (Client.LoginServer.IsConnected) SendRegisterRequest();
             else Client.LoginServer.ConnectToServer(SendRegisterRequest);
         }
@@ -86,6 +100,7 @@ namespace Login
 
         public void ShowNameSelection(string username)
         {
+            EnableButtons(true);
             _username = username;
             _usernameInputField.gameObject.SetActive(false);
             _passwordInputField.gameObject.SetActive(false);
@@ -109,6 +124,7 @@ namespace Login
                 return;
             }
 
+            EnableButtons(true);
             PlayerNameSelectionMessage message = new PlayerNameSelectionMessage()
             {
                 playerName = playerName,
@@ -129,6 +145,13 @@ namespace Login
                 sb.Append(b.ToString("X2"));
 
             return sb.ToString();
+        }
+
+        private void EnableButtons(bool enabled)
+        {
+            _loginButton.interactable = enabled;
+            _registerButton.interactable = enabled;
+            _selectPlayerNameButton.interactable = enabled;
         }
     }
 }

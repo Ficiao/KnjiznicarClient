@@ -41,6 +41,7 @@ namespace Overworld
                 float angle = _angularSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime * -1;
                 _preRotation = _startTarget.localPosition;
                 _startTarget.RotateAround(_endTarget.position, Vector3.right, angle);
+                _startTarget.LookAt(_endTarget);
                 if(_startTarget.localPosition.z > _endTarget.localPosition.z)
                 {
                     _startTarget.localPosition = _preRotation;
@@ -93,6 +94,7 @@ namespace Overworld
             _startXPosition = _startTarget.localPosition.x;
             transform.LookAt(_endTarget);
             _layerMask = LayerMask.GetMask("Ground");
+            _startTarget.LookAt(_endTarget);
         }
     }
 }

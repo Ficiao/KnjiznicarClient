@@ -25,14 +25,18 @@ namespace Network
             _endPoint = new IPEndPoint(IPAddress.Parse(_server.Ip), _server.Port);
         }
 
-        public void Connect(int _localPort)
+        public void Connect()
         {
-            Socket = new UdpClient(_localPort);
+            Socket = new UdpClient();
             Socket.Connect(_endPoint);
             _recieveBuffer = new byte[1];
             Socket.BeginReceive(RecieveCallback, null);
 
-            ClientSend.SendUDPData(new UdpConnectMessage(), _server);   
+            ClientSend.SendUDPData(new UdpConnectMessage()
+            {
+                sessionId = Client.SessionId,
+            }, 
+            _server);   
         }
 
         public void SendData(byte[] sendData)

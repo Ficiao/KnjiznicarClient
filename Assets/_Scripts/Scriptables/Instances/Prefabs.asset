@@ -19,5 +19,5 @@ MonoBehaviour:
       type: 3}
   - assetId: 1
     name: OtherPlayer
-    prefab: {fileID: 5571688685490100180, guid: 232b9abc55296a04b91b8517db032086,
+    prefab: {fileID: 5944713768662763557, guid: 4cfdd8befc1d048488b6fe0d9c2ccdef,
       type: 3}
