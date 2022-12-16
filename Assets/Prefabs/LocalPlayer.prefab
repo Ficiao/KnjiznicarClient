@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 659052297941905817}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 15.129998, z: -39.449993}
+  m_LocalPosition: {x: 0, y: 0, z: -42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -710,7 +710,7 @@ MonoBehaviour:
   _characterController: {fileID: 8757106913902797418}
   _cameraEndTarget: {fileID: 4604722128289147653}
   _cameraStartTarget: {fileID: 2432263442256981382}
-  _angularSpeed: 150
+  _angularSpeed: 130
   DisableCameraMovement: 0
 --- !u!54 &1363430977374717891
 Rigidbody:
@@ -1530,7 +1530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9001446351037996376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17, y: 8.44, z: 0.35}
+  m_LocalPosition: {x: -0.17, y: 8.4, z: 0.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

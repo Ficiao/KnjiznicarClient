@@ -7,8 +7,6 @@ namespace Overworld
 {
     public class GameManager : Singleton<GameManager>
     {
-        [SerializeField] private Camera _camera;
-
         public Dictionary<string, PlayerController> Players;
         public UserController Player;
 
@@ -29,7 +27,6 @@ namespace Overworld
                 {
                     Players.Add(playerName, playerManager);
                 }
-                _camera.transform.parent = playerManager.transform;
             }
             else
             {

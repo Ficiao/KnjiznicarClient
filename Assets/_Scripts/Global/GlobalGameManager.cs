@@ -53,21 +53,47 @@ namespace Global
 
         public void SpawnPlayer(string playerName)
         {
-            if (Overworld.GameManager.Instance == null) _spawnCache.Add(playerName);
-            else Overworld.GameManager.Instance.SpawnPlayer(playerName);
+            if (Overworld.GameManager.Instance == null) lock (_spawnCache) _spawnCache.Add(playerName);
+            else
+            {
+                lock (Overworld.GameManager.Instance)
+                {
+                    if (Overworld.GameManager.Instance.Players.ContainsKey(playerName)) return;
+                    Overworld.GameManager.Instance.SpawnPlayer(playerName);
+                }
+            }
         }
 
         public void DespawnPlayer(string playerName)
         {
-            if (Overworld.GameManager.Instance == null) _despawnCache.Add(playerName);
-            else Overworld.GameManager.Instance.DespawnPlayer(playerName);
+            if (Overworld.GameManager.Instance == null) lock (_despawnCache) _despawnCache.Add(playerName);
+            else
+            {
+                lock (Overworld.GameManager.Instance)
+                {
+                    if (!Overworld.GameManager.Instance.Players.ContainsKey(playerName)) return;
+                    Overworld.GameManager.Instance.DespawnPlayer(playerName);
+                }
+            }
         }
 
         private void OverworldLoaded()
         {
-            _spawnCache.ForEach(s => Overworld.GameManager.Instance.SpawnPlayer(s));
+            _spawnCache.ForEach(s => 
+            {
+                lock (Overworld.GameManager.Instance)
+                {
+                    if(!Overworld.GameManager.Instance.Players.ContainsKey(s)) Overworld.GameManager.Instance.SpawnPlayer(s);
+                }; 
+            });
             _spawnCache.Clear();      
-            _despawnCache.ForEach(s => Overworld.GameManager.Instance.DespawnPlayer(s));
+            _despawnCache.ForEach(s =>
+            {
+                lock (Overworld.GameManager.Instance)
+                {
+                    if (Overworld.GameManager.Instance.Players.ContainsKey(s)) Overworld.GameManager.Instance.DespawnPlayer(s);
+                }
+            });
             _despawnCache.Clear();
         }
 

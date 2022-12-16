@@ -7,17 +7,16 @@ namespace Overworld
         [SerializeField] private int _zoomLevels;
         [SerializeField] private float _angularSpeed;
         [SerializeField] private float _maxAngleBuffer;
+        [SerializeField] private float _maxCameraAngle;
         private Transform _endTarget;
         private Transform _startTarget;
         private int _currentZoom;
-        private Vector3 _temp;
         private float _zoomPercentage;
-        private float _startXPosition;
         private Vector3 _worldPositionNoCollision;
         private LayerMask _layerMask;
-        private Vector3 _preRotation;
         private UserController _userController;
         private bool _disableCameraMovement;
+        private Vector3 _oldRotation;
 
         public bool DisableCameraMovement 
         { 
@@ -38,20 +37,14 @@ namespace Overworld
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
-                float angle = _angularSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime * -1;
-                _preRotation = _startTarget.localPosition;
-                _startTarget.RotateAround(_endTarget.position, Vector3.right, angle);
-                _startTarget.LookAt(_endTarget);
-                if(_startTarget.localPosition.z > _endTarget.localPosition.z)
+                float angle = _angularSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime;
+                _oldRotation = _endTarget.localEulerAngles;
+                _endTarget.Rotate(angle, 0, 0);
+                if (Mathf.Abs(_endTarget.localEulerAngles.x) > _maxCameraAngle && Mathf.Abs(_endTarget.localEulerAngles.x) < 360 - _maxCameraAngle)
                 {
-                    _startTarget.localPosition = _preRotation;
-                }
-                else
-                {
-                    _temp.x = _startXPosition;
-                    _temp.y = _startTarget.localPosition.y;
-                    _temp.z = _startTarget.localPosition.z;
-                    _startTarget.localPosition = _temp;
+                    if (Mathf.Abs(_endTarget.localEulerAngles.x) < 360 / 2) _oldRotation.x = _maxCameraAngle;
+                    else _oldRotation.x = 360 - _maxCameraAngle;
+                    _endTarget.localEulerAngles = _oldRotation;
                 }
             }
             else
@@ -71,7 +64,7 @@ namespace Overworld
                 _zoomPercentage = (float)_currentZoom / _zoomLevels;
             }
 
-            transform.localPosition = Vector3.Lerp(_endTarget.localPosition, _startTarget.localPosition, _zoomPercentage);
+            transform.position = Vector3.Lerp(_endTarget.position, _startTarget.position, _zoomPercentage);
             transform.LookAt(_endTarget);
             _worldPositionNoCollision = transform.position;
 
@@ -91,10 +84,8 @@ namespace Overworld
             transform.localPosition = _startTarget.localPosition;
             _currentZoom = _zoomLevels;
             _zoomPercentage = 1f;
-            _startXPosition = _startTarget.localPosition.x;
             transform.LookAt(_endTarget);
             _layerMask = LayerMask.GetMask("Ground");
-            _startTarget.LookAt(_endTarget);
         }
     }
 }

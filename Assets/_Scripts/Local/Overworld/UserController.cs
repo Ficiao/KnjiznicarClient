@@ -20,6 +20,7 @@ namespace Overworld
         private void Start()
         {
             base.Start();
+            CameraController.Instance.transform.parent = transform;
             CameraController.Instance.Init(_cameraEndTarget, _cameraStartTarget, this);
             _rotation = new Vector3(0, 0, 0);
         }

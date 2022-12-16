@@ -5,6 +5,7 @@ using System;
 using UnityEngine;
 using Overworld;
 using Global;
+using System.Collections.Generic;
 
 namespace Network.MessageHandlers
 {
@@ -13,7 +14,7 @@ namespace Network.MessageHandlers
         public override void HandleMessage(JObject dataJsonObject)
         {
             PlayerCoordinatesMessage message = JsonConvert.DeserializeObject<PlayerCoordinatesMessage>(dataJsonObject.ToString());
-
+            List<string> missingPlayers = new();
 
             foreach(PlayerCoordinatesMessage.PlayerCoordinates coordinates in message.PlayerPositions)
             {
@@ -35,8 +36,19 @@ namespace Network.MessageHandlers
                 catch (Exception ex)
                 {
                     Debug.Log($"Trying to update position for id {coordinates.playerUsername} that does not exist: {ex}");
+                    missingPlayers.Add(coordinates.playerUsername);
                 }
             } 
+
+            if(missingPlayers.Count > 0)
+            {
+                PlayersMissingMessage playersMissingMessage = new PlayersMissingMessage()
+                {
+                    missingNames = missingPlayers,
+                };
+
+                ClientSend.SendTCPData(playersMissingMessage, Client.OverworldServer);
+            }
         }
     }
 }

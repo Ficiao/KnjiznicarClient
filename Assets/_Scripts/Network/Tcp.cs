@@ -76,6 +76,7 @@ namespace Network
                     using (BsonReader reader = new BsonReader(ms))
                     {
                         dataJsonObject = (JObject)JToken.ReadFrom(reader);
+                        Debug.Log(dataJsonObject.ToString());
                         MessageHandler.Instance.HandleMessage(dataJsonObject);
                     }
                 });
