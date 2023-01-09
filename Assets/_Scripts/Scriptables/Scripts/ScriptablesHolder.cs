@@ -4,12 +4,16 @@ namespace Scriptables
 {
     class ScriptablesHolder : SingletonPersistent<ScriptablesHolder>
     {
-        [SerializeField] private PrefabsScriptable _prefabsScriptable;
+        [SerializeField] private PlayerScriptable _playerScriptable;
+        [SerializeField] private NpcScriptable _npcScriptable;
+
+        public PlayerScriptable PlayerScriptable => _playerScriptable;
+        public NpcScriptable NpcScriptable => _npcScriptable;
 
         private void Awake()
         {
             base.Awake();
-            _prefabsScriptable.Init();
+            _playerScriptable.Init();
         }
     }
 }

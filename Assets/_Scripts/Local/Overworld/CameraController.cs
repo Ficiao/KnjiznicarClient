@@ -31,13 +31,14 @@ namespace Overworld
         private void Update()
         {
             if (_disableCameraMovement) return;
+            if (_userController == null) return;
 
             if (Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1))
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
 
-                float angle = _angularSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime;
+                float angle = -_angularSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime;
                 _oldRotation = _endTarget.localEulerAngles;
                 _endTarget.Rotate(angle, 0, 0);
                 if (Mathf.Abs(_endTarget.localEulerAngles.x) > _maxCameraAngle && Mathf.Abs(_endTarget.localEulerAngles.x) < 360 - _maxCameraAngle)

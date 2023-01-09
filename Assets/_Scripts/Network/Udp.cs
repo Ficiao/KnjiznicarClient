@@ -34,7 +34,7 @@ namespace Network
 
             ClientSend.SendUDPData(new UdpConnectMessage()
             {
-                sessionId = Client.SessionId,
+                SessionId = Client.SessionId,
             }, 
             _server);   
         }

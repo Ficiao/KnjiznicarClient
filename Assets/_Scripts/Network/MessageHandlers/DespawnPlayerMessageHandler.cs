@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using KnjiznicarDataModel.Message;
-using Global;
+using Shared;
 
 namespace Network.MessageHandlers
 {
@@ -11,7 +11,7 @@ namespace Network.MessageHandlers
         {
             DespawnPlayerMessage message = JsonConvert.DeserializeObject<DespawnPlayerMessage>(dataJsonObject.ToString());
 
-            GlobalGameManager.Instance.DespawnPlayer(message.playerUsername);
+            GlobalGameManager.Instance.DespawnPlayer(message.PlayerUsername);
         }
     }
 }

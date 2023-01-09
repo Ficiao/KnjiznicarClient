@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db3dcb8c7743a8a49aac4f412318fdbc, type: 3}
+  m_Name: NPC Scriptable
+  m_EditorClassIdentifier: 
+  _npcData:
+  - NpcId: 0
+    npc: {fileID: 699782375057746199, guid: a8fa9ea43a4fad34a929afcdd3e7c8cc, type: 3}
+    SpawnPosition: {x: 9.23, y: 6.898, z: -3.95}
+  - NpcId: 1
+    npc: {fileID: 6448309636210580664, guid: 0446199a65db55841b67fae99a651646, type: 3}
+    SpawnPosition: {x: 0, y: 8.365, z: 53.46}

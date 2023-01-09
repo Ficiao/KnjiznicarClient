@@ -7,7 +7,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System;
 
 namespace Login
 {
@@ -82,8 +81,8 @@ namespace Login
         {
             LoginMessage message = new LoginMessage()
             {
-                username = _usernameInputField.text,
-                passwordHash = GetHashString(_passwordInputField.text),
+                Username = _usernameInputField.text,
+                PasswordHash = GetHashString(_passwordInputField.text),
             };
             ClientSend.SendTCPData(message, Client.LoginServer);
         }
@@ -92,8 +91,8 @@ namespace Login
         {
             RegisterMessage message = new RegisterMessage()
             {
-                username = _usernameInputField.text,
-                passwordHash = GetHashString(_passwordInputField.text),
+                Username = _usernameInputField.text,
+                PasswordHash = GetHashString(_passwordInputField.text),
             };
             ClientSend.SendTCPData(message, Client.LoginServer);
         }
@@ -127,7 +126,7 @@ namespace Login
             EnableButtons(true);
             PlayerNameSelectionMessage message = new PlayerNameSelectionMessage()
             {
-                playerName = playerName,
+                PlayerName = playerName,
             }; 
             ClientSend.SendTCPData(message, Client.LoginServer);
         }

@@ -1,4 +1,4 @@
-﻿using Global;
+﻿using Shared;
 using KnjiznicarDataModel.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -11,7 +11,7 @@ namespace Network.MessageHandlers
         {
             SpawnPlayersMessage message = JsonConvert.DeserializeObject<SpawnPlayersMessage>(dataJsonObject.ToString());
 
-            foreach((string, float[]) playerCoordinates in message.spawnArray)
+            foreach((string, float[]) playerCoordinates in message.SpawnArray)
             {
                 GlobalGameManager.Instance.SpawnPlayer(playerCoordinates.Item1);
             }

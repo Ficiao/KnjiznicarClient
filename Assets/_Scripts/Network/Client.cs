@@ -1,4 +1,4 @@
-﻿using Global;
+﻿using Shared;
 using UnityEngine;
 
 namespace Network
@@ -14,9 +14,6 @@ namespace Network
 
         private void Start()
         {
-            //LoginServer = new Server("192.168.0.15", 26950);
-            //LoginServer = new Server("127.0.0.1", 26950, null, false);
-            //LoginServer = new Server("159.223.16.231", 26950, null, false);
             LoginServer = new Server(_loginIp, 26950, null, false);
         }
 
@@ -45,9 +42,9 @@ namespace Network
 
         public void DisconnectAll(bool isLogout)
         {
-            LoginServer.Disconnect(isLogout);
-            OverworldServer.Disconnect(isLogout);
-            InstanceServer.Disconnect(isLogout);
+            LoginServer?.Disconnect(isLogout);
+            OverworldServer?.Disconnect(isLogout);
+            InstanceServer?.Disconnect(isLogout);
         }
     }
 }

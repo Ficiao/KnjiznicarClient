@@ -2,7 +2,7 @@
 using Login;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Global;
+using Shared;
 
 namespace Network.MessageHandlers
 {
@@ -12,17 +12,17 @@ namespace Network.MessageHandlers
         {
             LoginSuccessfulMessage message = JsonConvert.DeserializeObject<LoginSuccessfulMessage>(dataJsonObject.ToString());
 
-            if (message.loginSuccessful && message.isLogin)
+            if (message.LoginSuccessful && message.IsLogin)
             {
-                Client.Instance.ConnectToWorldServer(message.overworldIp, message.overworldPort);
+                GlobalPlayerData.PlayerData = message.PlayerData;
+                Client.Instance.ConnectToWorldServer(message.OverworldIp, message.OverworldPort);
 
-                GlobalPlayerData.Instance.PlayerData = message.playerData;
                 UIManager.Instance.LoggedIn();
                 Client.LoginServer.Disconnect(false);
             }
-            else if (message.loginSuccessful)
+            else if (message.LoginSuccessful)
             {
-                UIManager.Instance.ShowNameSelection(message.username);
+                UIManager.Instance.ShowNameSelection(message.Username);
             }
         }
     }

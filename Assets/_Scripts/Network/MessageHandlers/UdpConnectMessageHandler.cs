@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Network.MessageHandlers
 {
-    class UdpConnectHandler : BaseMessageHandler
+    class UdpConnectMessageHandler : BaseMessageHandler
     {
         public override void HandleMessage(JObject dataJsonObject)
         {

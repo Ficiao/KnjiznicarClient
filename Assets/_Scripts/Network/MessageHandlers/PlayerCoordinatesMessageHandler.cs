@@ -4,8 +4,9 @@ using KnjiznicarDataModel.Message;
 using System;
 using UnityEngine;
 using Overworld;
-using Global;
+using Shared;
 using System.Collections.Generic;
+using KnjiznicarDataModel.Enum;
 
 namespace Network.MessageHandlers
 {
@@ -13,6 +14,8 @@ namespace Network.MessageHandlers
     {
         public override void HandleMessage(JObject dataJsonObject)
         {
+            if (GlobalGameManager.Instance.Server != ServerType.Overworld) return;
+
             PlayerCoordinatesMessage message = JsonConvert.DeserializeObject<PlayerCoordinatesMessage>(dataJsonObject.ToString());
             List<string> missingPlayers = new();
 
@@ -20,23 +23,23 @@ namespace Network.MessageHandlers
             {
                 try
                 {
-                    Vector3 position = new Vector3(coordinates.position[0], coordinates.position[1], coordinates.position[2]);
-                    if (coordinates.playerUsername == GlobalPlayerData.Instance.PlayerData.playerName)
+                    Vector3 position = new Vector3(coordinates.Position[0], coordinates.Position[1], coordinates.Position[2]);
+                    if (coordinates.PlayerUsername == GlobalPlayerData.PlayerData.PlayerName)
                     {
-                        GameManager.Instance.Players[coordinates.playerUsername].NextPosition(position, 
-                            coordinates.leftRightDirection, coordinates.forwardDirection, coordinates.grounded);
+                        ((UserController)GameManager.Instance.Players[coordinates.PlayerUsername]).NextPosition(position, 
+                            coordinates.LeftRightDirection, coordinates.ForwardDirection, coordinates.Grounded);
                     }
                     else
                     {
-                        Vector3 rotation = new Vector3(coordinates.rotation[0], coordinates.rotation[1], coordinates.rotation[2]);
-                        GameManager.Instance.Players[coordinates.playerUsername].NextPosition(position, rotation,
-                            coordinates.leftRightDirection, coordinates.forwardDirection, coordinates.grounded);
+                        Vector3 rotation = new Vector3(coordinates.Rotation[0], coordinates.Rotation[1], coordinates.Rotation[2]);
+                        GameManager.Instance.Players[coordinates.PlayerUsername].NextPosition(position, rotation,
+                            coordinates.LeftRightDirection, coordinates.ForwardDirection, coordinates.Grounded);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log($"Trying to update position for id {coordinates.playerUsername} that does not exist: {ex}");
-                    missingPlayers.Add(coordinates.playerUsername);
+                    Debug.Log($"Trying to update position for id {coordinates.PlayerUsername} that does not exist: {ex}");
+                    missingPlayers.Add(coordinates.PlayerUsername);
                 }
             } 
 
@@ -44,7 +47,7 @@ namespace Network.MessageHandlers
             {
                 PlayersMissingMessage playersMissingMessage = new PlayersMissingMessage()
                 {
-                    missingNames = missingPlayers,
+                    MissingNames = missingPlayers,
                 };
 
                 ClientSend.SendTCPData(playersMissingMessage, Client.OverworldServer);

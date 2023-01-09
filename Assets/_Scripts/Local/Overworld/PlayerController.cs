@@ -1,25 +1,33 @@
 ﻿using UnityEngine;
 using TMPro;
 using Enum;
+using System.Collections;
 
 namespace Overworld
 {
     public class PlayerController : MonoBehaviour
     {
-        [SerializeField] private float _lerpSpeed;
         [SerializeField] private TextMeshPro _playerNameText;
         [SerializeField] private Animator _animator;
         [SerializeField] private CharacterController _characterController;
-        private Vector3 _endPosition;
+        [SerializeField] private GameObject _chatBubble;
+        [SerializeField] private TextMeshPro _chatBubbleText;
+        [SerializeField] private float _chatBubbleDuration;
+        [SerializeField] private float _moveSpeed;
+        protected Vector3 _endPosition;
         private string _playerName;
         private PlayerAnimationState _animationState;
-        private int _leftRightDirection;
-        private int _forwardDirection;
-        private bool _grounded;
+        protected int _leftRightDirection;
+        protected int _forwardDirection;
+        protected bool _grounded;
+        private IEnumerator _bubbleCoroutine;
+        private Transform _camera;
+        private Vector3 _currentVelocity;
 
         protected void Start()
         {
             _animationState = PlayerAnimationState.Idle;
+            _camera = Camera.main.transform;
         }
 
         public string PlayerName
@@ -33,117 +41,47 @@ namespace Overworld
         }
         protected void Update()
         {
-            AnimationUpdate();
+            _playerNameText.transform.LookAt(_camera);
+            _playerNameText.transform.Rotate(0, 180, 0);
+            PlayerAnimationController.AnimationUpdate(_grounded, _leftRightDirection, _forwardDirection, ref _animationState, _animator);
         }
 
         protected void FixedUpdate()
         {
-            //transform.position = Vector3.MoveTowards(transform.position, _endPosition, Time.deltaTime * _lerpSpeed);
-            _playerNameText.transform.LookAt(Camera.main.transform);
-            _playerNameText.transform.Rotate(0, 180, 0);
+            Move();
         }
 
-        public void NextPosition(Vector3 position, int leftRightDirection, int forwardDirection, bool grounded)
+        protected virtual void Move()
         {
-            _leftRightDirection = leftRightDirection;
-            _forwardDirection = forwardDirection;
-            _grounded = grounded;
-            transform.position = position;
-            _endPosition = position;
+            transform.position = Vector3.SmoothDamp(transform.position, _endPosition, ref _currentVelocity, _moveSpeed * Time.fixedDeltaTime);
         }
 
         public void NextPosition(Vector3 position, Vector3 rotation, int leftRightDirection, int forwardDirection, bool grounded)
         {
+            _grounded = grounded;
             _leftRightDirection = leftRightDirection;
             _forwardDirection = forwardDirection;
-            _grounded = grounded;
-            transform.position = position;
             transform.rotation = Quaternion.Euler(rotation);
             _endPosition = position;
             transform.rotation = Quaternion.Euler(rotation);
+        }       
+
+        public void ShowText(string text)
+        {
+            _chatBubble.gameObject.SetActive(true);
+            _chatBubbleText.text = text;
+            if(_bubbleCoroutine != null)
+            {
+                StopCoroutine(_bubbleCoroutine);
+            }
+            _bubbleCoroutine = TextTimer();
+            StartCoroutine(_bubbleCoroutine);
         }
 
-        public void AnimationUpdate()
+        private IEnumerator TextTimer()
         {
-            if (_grounded)
-            {
-                switch ((_leftRightDirection, _forwardDirection))
-                {
-                    case (1, 1):
-                        if(_animationState != PlayerAnimationState.StrafingForwardRight)
-                        {
-                            _animationState = PlayerAnimationState.StrafingForwardRight;
-                            _animator.SetTrigger("StrafeForwardRight");
-                        }
-                        break;
-                    case (1, 0):
-                        if (_animationState != PlayerAnimationState.StrafingRight)
-                        {
-                            _animationState = PlayerAnimationState.StrafingRight;
-                            _animator.SetTrigger("StrafeRight");
-                        }                        
-                        break;
-                    case (1, -1):
-                        if (_animationState != PlayerAnimationState.StrafingBackRight)
-                        {
-                            _animationState = PlayerAnimationState.StrafingBackRight;
-                            _animator.SetTrigger("StrafeBackRight");
-                        }
-                        break;
-                    case (0, 1):
-                        if (_animationState != PlayerAnimationState.RunningForward)
-                        {
-                            _animationState = PlayerAnimationState.RunningForward;
-                            _animator.SetTrigger("RunForward");
-                        }
-                        break;
-                    case (0, 0):
-                        if (_animationState != PlayerAnimationState.Idle)
-                        {
-                            _animationState = PlayerAnimationState.Idle;
-                            _animator.SetTrigger("Idle");
-                        }
-                        break;
-                    case (0, -1):
-                        if (_animationState != PlayerAnimationState.RunningBack)
-                        {
-                            _animationState = PlayerAnimationState.RunningBack;
-                            _animator.SetTrigger("RunBack");
-                        }
-                        break;
-                    case (-1, 1):
-                        if (_animationState != PlayerAnimationState.StrafingForwardLeft)
-                        {
-                            _animationState = PlayerAnimationState.StrafingForwardLeft;
-                            _animator.SetTrigger("StrafeForwardLeft");
-                        }
-                        break;
-                    case (-1, 0):
-                        if (_animationState != PlayerAnimationState.StrafingLeft)
-                        {
-                            _animationState = PlayerAnimationState.StrafingLeft;
-                            _animator.SetTrigger("StrafeLeft");
-                        }
-                        break;
-                    case (-1, -1):
-                        if (_animationState != PlayerAnimationState.StrafingBackLeft)
-                        {
-                            _animationState = PlayerAnimationState.StrafingBackLeft;
-                            _animator.SetTrigger("StrafeBackLeft");
-                        }
-                        break;
-                    default:
-                        break;
-                }
-            }
-            else
-            {
-                if (_animationState != PlayerAnimationState.Jumping)
-                {
-                    _animator.SetBool("Jumping", true);
-                    _animationState = PlayerAnimationState.Jumping;
-                }
-            }
+            yield return new WaitForSeconds(_chatBubbleDuration);
+            _chatBubble.gameObject.SetActive(false);
         }
     }
 }

@@ -11,14 +11,14 @@ namespace Network.MessageHandlers
         public override void HandleMessage(JObject dataJsonObject)
         {
             ConnectedToServerMessage message = JsonConvert.DeserializeObject<ConnectedToServerMessage>(dataJsonObject.ToString());
-            Debug.Log(message.welcomeMessage);
+            Debug.Log(message.WelcomeMessage);
 
-            switch (message.serverType)
+            switch (message.ServerType)
             {
                 case KnjiznicarDataModel.Enum.ServerType.Login:
                     break;
                 case KnjiznicarDataModel.Enum.ServerType.Overworld:
-                    Client.SessionId = message.sessionId;
+                    Client.SessionId = message.SessionId;
                     Client.OverworldServer.Udp.Connect();
                     break;
                 case KnjiznicarDataModel.Enum.ServerType.Instance:
