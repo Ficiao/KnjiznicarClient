@@ -11,6 +11,7 @@ namespace Network
         public static Server LoginServer { get; private set; }
         public static Server OverworldServer{ get; private set; }
         public static Server InstanceServer { get; private set; }
+        public string ServerIp => _loginIp;
 
         private void Start()
         {

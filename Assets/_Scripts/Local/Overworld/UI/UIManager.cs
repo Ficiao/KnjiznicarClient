@@ -34,6 +34,7 @@ namespace Overworld
         [SerializeField] private TextMeshProUGUI _provilePvpRating;
         private IEnumerator _lookingForMatchAnimation;
         private int? _npcId;
+        private NetcodeMenuView _netcodeMenu;
 
         private void Awake()
         {
@@ -46,6 +47,11 @@ namespace Overworld
             _chatInput.onSelect.AddListener(text => GameManager.Instance.Player.Enabled = false);
             _chatInput.onDeselect.AddListener(text => GameManager.Instance.Player.Enabled = true);
             _adventureMenu.Initialize(GlobalPlayerData.PlayerData.AdventureLevel + 1);
+        }
+
+        private void Start()
+        {
+            _netcodeMenu = NetcodeMenuView.Instance;
         }
 
         private void LogoutRequest()
@@ -77,6 +83,7 @@ namespace Overworld
 
         public void SetPingTime(int time)
         {
+            time += _netcodeMenu.MsDelay;
             if (time <= 50) _pingText.color = Color.green;
             else if (time <= 75) _pingText.color = Color.yellow;
             if (time <= 35) _pingText.color = Color.green;

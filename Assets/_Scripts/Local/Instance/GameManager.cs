@@ -28,6 +28,7 @@ namespace MatchInstance
             if (matchType != MatchType.Pvp) ChatController.Instance.gameObject.SetActive(false);
             _ownPlayer = Instantiate(ScriptablesHolder.Instance.PlayerScriptable.GetPrefab(AssetType.InstanceLocalPlayer)
                 , _playerOneContainer).GetComponent<PlayerController>();
+
             _ownPlayer.PlayerName = GlobalPlayerData.PlayerData.PlayerName;
             _ownPlayer.MaximumHealth = playerData.Health;
             _ownPlayer.CurrentHealth = playerData.Health;

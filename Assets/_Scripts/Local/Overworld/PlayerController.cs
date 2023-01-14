@@ -24,10 +24,13 @@ namespace Overworld
         private Transform _camera;
         private Vector3 _currentVelocity;
 
+        public bool AdvancedMovementEnabled;
+
         protected void Start()
         {
             _animationState = PlayerAnimationState.Idle;
             _camera = Camera.main.transform;
+            AdvancedMovementEnabled = true;
         }
 
         public string PlayerName
@@ -48,12 +51,18 @@ namespace Overworld
 
         protected void FixedUpdate()
         {
-            Move();
+            if (AdvancedMovementEnabled) MoveAdvanced();
+            else MoveBasic();
         }
 
-        protected virtual void Move()
+        protected virtual void MoveAdvanced()
         {
             transform.position = Vector3.SmoothDamp(transform.position, _endPosition, ref _currentVelocity, _moveSpeed * Time.fixedDeltaTime);
+        }
+
+        protected virtual void MoveBasic()
+        {
+            transform.position = _endPosition;
         }
 
         public void NextPosition(Vector3 position, Vector3 rotation, int leftRightDirection, int forwardDirection, bool grounded)

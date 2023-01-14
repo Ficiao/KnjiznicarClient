@@ -12,7 +12,7 @@ using System;
 
 namespace Overworld
 {
-    class NetcodeMenuView : MonoBehaviour
+    class NetcodeMenuView : Singleton<NetcodeMenuView>
     {
         [SerializeField] private GameObject _netcodeMenu;
         [SerializeField] private Button _netcodeMenuButton;
@@ -21,13 +21,27 @@ namespace Overworld
         [SerializeField] private Toggle _entityInterpolationToggle;
         [SerializeField] private Button _backButton;
 
+        public int MsDelay;
+
         private void Awake()
         {
+            base.Awake();
+            gameObject.SetActive(false);
+            MsDelay = 0;
             _netcodeMenuButton.onClick.AddListener(ShowNetcodeMenu);
             _backButton.onClick.AddListener(HideNetcodeMenu);
-            _lagInput.onValueChanged.AddListener(text => LagInputChanged(Int32.Parse(text)));
+            _lagInput.onValueChanged.AddListener(text => LagInputChanged(text));
             _clientPreditionToggle.onValueChanged.AddListener(isOn => ClientPredictionToggleChanged(isOn));
             _entityInterpolationToggle.onValueChanged.AddListener(isOn => EntityInterpolationToggleChange(isOn));
+        }
+
+        private void LagInputChanged(string amount)
+        {
+            try
+            {
+                MsDelay = Int32.Parse(amount);
+            }
+            catch { }
         }
 
         private void ShowNetcodeMenu()
@@ -39,24 +53,20 @@ namespace Overworld
 
         private void HideNetcodeMenu()
         {
-            _netcodeMenu.SetActive(true);
+            _netcodeMenu.SetActive(false);
             GameManager.Instance.Player.Enabled = true;
             CameraController.Instance.DisableCameraMovement = false;
         }
 
-        private void LagInputChanged(int amount)
-        {
 
-        }
-
-        private void ClientPredictionToggleChanged(bool isOn)
-        {
-
-        }
+        private void ClientPredictionToggleChanged(bool isOn) => GameManager.Instance.Player.AdvancedMovementEnabled = isOn;
 
         private void EntityInterpolationToggleChange(bool isOn)
         {
-
+            foreach (PlayerController player in GameManager.Instance.Players.Values)
+            {
+                if (player != GameManager.Instance.Player) player.AdvancedMovementEnabled = isOn;
+            }
         }
     }
 }

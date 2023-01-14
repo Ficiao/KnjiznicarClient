@@ -25,6 +25,11 @@ namespace Overworld
             {
                 _disableCameraMovement = value;
                 _userController.DisableCameraMovement = value;
+                if (DisableCameraMovement)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
             } 
         }
 

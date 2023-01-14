@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Overworld;
+using System.Linq;
 
 namespace Network
 {
     class ThreadManager : MonoBehaviour
     {
-        private static readonly List<Action> executeOnMainThread = new List<Action>();
+        private static readonly List<(Action, DateTime)> executeOnMainThread = new List<(Action, DateTime)>();
         private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
         private static bool actionToExecuteOnMainThread = false;
+        private static NetcodeMenuView _netcodeMenu;
 
         private void Update()
         {
+            _netcodeMenu = NetcodeMenuView.Instance;
             UpdateMain();
         }
 
@@ -25,7 +29,7 @@ namespace Network
 
             lock (executeOnMainThread)
             {
-                executeOnMainThread.Add(_action);
+                executeOnMainThread.Add((_action, DateTime.Now));
                 actionToExecuteOnMainThread = true;
             }
         }
@@ -37,9 +41,23 @@ namespace Network
                 executeCopiedOnMainThread.Clear();
                 lock (executeOnMainThread)
                 {
-                    executeCopiedOnMainThread.AddRange(executeOnMainThread);
-                    executeOnMainThread.Clear();
-                    actionToExecuteOnMainThread = false;
+                    if (_netcodeMenu == null)
+                    {
+                        executeCopiedOnMainThread.AddRange(executeOnMainThread.Select(a => a.Item1));
+                        executeOnMainThread.Clear();
+                        actionToExecuteOnMainThread = false;
+                    }
+                    else
+                    {
+                        for(int i = executeOnMainThread.Count - 1; i >= 0; i--)
+                        {
+                            if(executeOnMainThread[i].Item2.AddMilliseconds(_netcodeMenu.MsDelay) <= DateTime.Now)
+                            {
+                                executeCopiedOnMainThread.Add(executeOnMainThread[i].Item1);
+                                executeOnMainThread.RemoveAt(i);
+                            }
+                        }
+                    }
                 }
 
                 for (int i = 0; i < executeCopiedOnMainThread.Count; i++)

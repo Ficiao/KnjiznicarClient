@@ -34,7 +34,13 @@ namespace Overworld
         private void Update()
         {
             base.Update();
-            if (!Enabled) return;
+            if (!Enabled)
+            {
+                _sendForwardDirection = 0;
+                _sendLeftRightDirection = 0;
+                _jump = false;
+                return;
+            }
 
             if ((Input.GetKey(KeyCode.Mouse0) || Input.GetKey(KeyCode.Mouse1)) && DisableCameraMovement == false)
             {
@@ -56,6 +62,15 @@ namespace Overworld
         private void FixedUpdate()
         {
             base.FixedUpdate();
+        }
+
+        protected override void MoveAdvanced()
+        {
+            MoveBasic();
+        }
+
+        protected override void MoveBasic()
+        {
             Vector3 rotation = transform.rotation.eulerAngles;
             PlayerInputMessage message = new PlayerInputMessage()
             {
@@ -65,11 +80,6 @@ namespace Overworld
                 Rotation = new float[3] { rotation.x, rotation.y, rotation.z },
             };
             ClientSend.SendUDPData(message, Client.OverworldServer);
-        }
-
-        protected override void Move()
-        {
-
         }
 
         private IEnumerator HeartBeatSender()

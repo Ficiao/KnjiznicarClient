@@ -1,5 +1,6 @@
 ﻿using KnjiznicarDataModel;
 using KnjiznicarDataModel.Enum;
+using Network;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -158,7 +159,7 @@ namespace Shared
         {
             while (true)
             {
-                ping = new Ping("159.223.16.231");
+                ping = new Ping(Client.Instance.ServerIp);
                 while (!ping.isDone) yield return null;
                 switch (_currentServer)
                 {
@@ -173,7 +174,7 @@ namespace Shared
                     default:
                         break;
                 }
-                yield return new WaitForSeconds(3f);
+                yield return new WaitForSeconds(1.5f);
             }
         }
     }
