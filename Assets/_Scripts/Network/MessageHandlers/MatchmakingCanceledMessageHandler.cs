@@ -1,8 +1,6 @@
 ﻿using KnjiznicarDataModel.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Net;
-using UnityEngine;
 
 namespace Network.MessageHandlers
 {

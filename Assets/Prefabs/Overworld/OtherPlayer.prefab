@@ -134,7 +134,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -942,6 +942,7 @@ MonoBehaviour:
   _chatBubbleText: {fileID: 5098540401695859138}
   _chatBubbleDuration: 4
   _moveSpeed: 1
+  AdvancedMovementEnabled: 0
 --- !u!54 &2496067987760267214
 Rigidbody:
   m_ObjectHideFlags: 0

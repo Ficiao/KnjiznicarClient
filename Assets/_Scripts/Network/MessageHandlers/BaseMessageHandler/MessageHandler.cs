@@ -35,7 +35,7 @@ namespace Network.MessageHandlers
         {
             try
             {
-                MessageType messageType = (MessageType)Int32.Parse(dataJsonObject["MessageType"].ToString());
+                MessageType messageType = (MessageType)Int32.Parse(dataJsonObject["MT"].ToString());
                 _messageHandlers[messageType].HandleMessage(dataJsonObject);
             }
             catch(Exception ex)

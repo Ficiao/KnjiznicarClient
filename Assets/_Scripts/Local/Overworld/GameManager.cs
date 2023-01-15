@@ -1,7 +1,6 @@
 using Shared;
 using Scriptables;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Overworld
 {

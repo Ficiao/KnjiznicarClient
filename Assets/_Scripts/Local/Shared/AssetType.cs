@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Shared
+﻿namespace Shared
 {
     public enum AssetType
     {

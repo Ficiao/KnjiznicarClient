@@ -21,6 +21,7 @@ namespace Shared
 
         public ServerType Server { get => _currentServer; }
         public string PingIp;
+        public bool IsWrongVersion;
 
         private void Awake()
         {
@@ -41,6 +42,7 @@ namespace Shared
                 case "LoginScreen":
                     _currentServer = ServerType.Login;
                     StopCoroutine(_pinger);
+                    LoginScreenLoaded();
                     _pinger = PingUpdate();
                     break;
                 case "Overworld":
@@ -106,7 +108,16 @@ namespace Shared
             }
         }
 
-        private void OverworldLoaded()
+        private void LoginScreenLoaded()
+        {
+            if (IsWrongVersion)
+            {
+                IsWrongVersion = false;
+                Login.UIManager.Instance.ShowNotification("Wrong game version. Please return to launcher and download latest version.");
+            }
+        }
+
+            private void OverworldLoaded()
         {
             _overworldSpawnCache.ForEach(s => 
             {

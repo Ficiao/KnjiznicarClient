@@ -7,6 +7,7 @@ namespace Network
     {
         [SerializeField] private string _loginIp;
 
+        [SerializeField] public string GameVersion;
         public static string SessionId;
         public static Server LoginServer { get; private set; }
         public static Server OverworldServer{ get; private set; }

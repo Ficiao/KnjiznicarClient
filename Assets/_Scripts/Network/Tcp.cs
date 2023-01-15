@@ -83,7 +83,7 @@ namespace Network
             }
             catch (Exception ex)
             {
-                Debug.Log(ex.Message);
+                Debug.Log(ex);
                 _server.Disconnect(true);
             }
         }

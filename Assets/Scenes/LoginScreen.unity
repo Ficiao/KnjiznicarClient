@@ -2177,6 +2177,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PingIp: 159.223.16.231
+  IsWrongVersion: 0
 --- !u!114 &1307219405
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2228,6 +2229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loginIp: 159.223.16.231
+  GameVersion: 0.3.4
 --- !u!1 &1358937929
 GameObject:
   m_ObjectHideFlags: 0

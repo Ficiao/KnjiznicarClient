@@ -1,8 +1,8 @@
 ﻿using KnjiznicarDataModel.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Net;
 using UnityEngine;
+using Shared;
 
 namespace Network.MessageHandlers
 {
@@ -18,8 +18,16 @@ namespace Network.MessageHandlers
                 case KnjiznicarDataModel.Enum.ServerType.Login:
                     break;
                 case KnjiznicarDataModel.Enum.ServerType.Overworld:
-                    Client.SessionId = message.SessionId;
-                    Client.OverworldServer.Udp.Connect();
+                    if(Client.Instance.GameVersion != message.Version)
+                    {
+                        GlobalGameManager.Instance.IsWrongVersion = true;
+                        Client.Instance.DisconnectAll(true);
+                    }
+                    else
+                    {
+                        Client.SessionId = message.SessionId;
+                        Client.OverworldServer.Udp.Connect();
+                    }
                     break;
                 case KnjiznicarDataModel.Enum.ServerType.Instance:
                     break;
