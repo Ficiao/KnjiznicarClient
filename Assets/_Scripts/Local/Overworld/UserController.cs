@@ -158,7 +158,6 @@ namespace Overworld
             if (_grounded && _jump)
             {
                 _yVelocity = _jumpSpeed;
-                _grounded = false;
                 _moveDirection.y = _yVelocity;
             }
             else
