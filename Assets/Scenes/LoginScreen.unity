@@ -2229,7 +2229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loginIp: 159.223.16.231
-  GameVersion: 0.3.4
+  GameVersion: 1.0.0
 --- !u!1 &1358937929
 GameObject:
   m_ObjectHideFlags: 0

@@ -1621,7 +1621,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 871239727741109536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trees
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1854,7 +1854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973181136831959298}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stones
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2064,9 +2064,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7653495555120718551}
     m_Modifications:
+    - target: {fileID: 107652, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 119454, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 124340, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
       propertyPath: m_Name
       value: pfb_FireTotem
+      objectReference: {fileID: 0}
+    - target: {fileID: 124340, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 133444, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 163516, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 169906, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 188442, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 466112, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
       propertyPath: m_RootOrder
@@ -2230,6 +2258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: StoneMeshCollider
+      objectReference: {fileID: 0}
+    - target: {fileID: 4234317646573411760, guid: bbef37d4d9748b14289154ee8e2396d9,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4234317646573411772, guid: bbef37d4d9748b14289154ee8e2396d9,
         type: 3}
@@ -2541,9 +2574,37 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7653495555120718551}
     m_Modifications:
+    - target: {fileID: 107652, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 119454, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 124340, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
       propertyPath: m_Name
       value: pfb_FireTotem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 124340, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 133444, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 163516, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 169906, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 188442, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 466112, guid: 11a2bf50f579eff44aa4483864409a5e, type: 3}
       propertyPath: m_RootOrder
@@ -2893,10 +2954,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7653495555120718551}
     m_Modifications:
+    - target: {fileID: 6785356622384885, guid: 0d6b5558c8da7a2419694676ec39e5d2, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3681835335991967348, guid: 0d6b5558c8da7a2419694676ec39e5d2,
         type: 3}
       propertyPath: m_Name
       value: Stairs (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3681835335991967348, guid: 0d6b5558c8da7a2419694676ec39e5d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705989570505498833, guid: 0d6b5558c8da7a2419694676ec39e5d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647982917522004205, guid: 0d6b5558c8da7a2419694676ec39e5d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7429562501609894458, guid: 0d6b5558c8da7a2419694676ec39e5d2,
         type: 3}
@@ -2952,6 +3032,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8873607344014470067, guid: 0d6b5558c8da7a2419694676ec39e5d2,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d6b5558c8da7a2419694676ec39e5d2, type: 3}

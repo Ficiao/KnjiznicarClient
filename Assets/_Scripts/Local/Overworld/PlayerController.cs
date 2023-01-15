@@ -8,21 +8,23 @@ namespace Overworld
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private TextMeshPro _playerNameText;
-        [SerializeField] private Animator _animator;
-        [SerializeField] private CharacterController _characterController;
+        [SerializeField] protected Animator _animator;
+        [SerializeField] protected CharacterController _characterController;
         [SerializeField] private GameObject _chatBubble;
         [SerializeField] private TextMeshPro _chatBubbleText;
         [SerializeField] private float _chatBubbleDuration;
-        [SerializeField] private float _moveSpeed;
+        [SerializeField] protected float _moveSpeed;
+        [SerializeField] private float _snapThreshold;
         protected Vector3 _endPosition;
         private string _playerName;
-        private PlayerAnimationState _animationState;
+        protected PlayerAnimationState _animationState;
         protected int _leftRightDirection;
         protected int _forwardDirection;
         protected bool _grounded;
         private IEnumerator _bubbleCoroutine;
         private Transform _camera;
         private Vector3 _currentVelocity;
+        protected Vector3 _moveDirection;
 
         public bool AdvancedMovementEnabled;
 
@@ -55,14 +57,19 @@ namespace Overworld
             else MoveBasic();
         }
 
-        protected virtual void MoveAdvanced()
+        private void MoveAdvanced()
         {
+            //_moveDirection = _endPosition - transform.position;
+            //if (_moveDirection.magnitude > _snapThreshold) _characterController.Move(_moveDirection.normalized * _moveSpeed * Time.fixedDeltaTime);
+            //else MoveBasic();
             transform.position = Vector3.SmoothDamp(transform.position, _endPosition, ref _currentVelocity, _moveSpeed * Time.fixedDeltaTime);
         }
 
-        protected virtual void MoveBasic()
+        private void MoveBasic()
         {
+            _characterController.enabled = false;
             transform.position = _endPosition;
+            _characterController.enabled = true;
         }
 
         public void NextPosition(Vector3 position, Vector3 rotation, int leftRightDirection, int forwardDirection, bool grounded)

@@ -14,6 +14,7 @@ namespace Network.MessageHandlers
             { MessageType.LoginSuccessful, new LoginSuccessfulMessageHandler() },
             { MessageType.Logout, new LogoutMessageHandler() },
             { MessageType.PlayerCoordinates, new PlayerCoordinatesMessageHandler() },
+            { MessageType.PlayersCoordinates, new PlayersCoordinatesMessageHandler() },
             { MessageType.SpawnPlayer, new SpawnPlayerMessageHandler() },
             { MessageType.Error, new ErrorMessageHandler() },
             { MessageType.UdpConnect, new UdpConnectMessageHandler() },

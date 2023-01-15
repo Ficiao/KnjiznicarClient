@@ -711,11 +711,16 @@ MonoBehaviour:
   _chatBubble: {fileID: 7118390057827497113}
   _chatBubbleText: {fileID: 2561279991203856640}
   _chatBubbleDuration: 4
-  _moveSpeed: 0
+  _moveSpeed: 5.5
   AdvancedMovementEnabled: 0
   _cameraEndTarget: {fileID: 4604722128289147653}
   _cameraStartTarget: {fileID: 2432263442256981382}
   _angularSpeed: 130
+  _serverTickRate: 30
+  _bufferSize: 1000
+  _reconciliationErrorMargin: 0.01
+  _gravity: -19.62
+  _jumpSpeed: 9
   DisableCameraMovement: 0
   Enabled: 0
 --- !u!54 &1363430977374717891
