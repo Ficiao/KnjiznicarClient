@@ -85,8 +85,8 @@ namespace Overworld
         {
             time += _netcodeMenu.MsDelay;
             if (time <= 50) _pingText.color = Color.green;
-            else if (time <= 75) _pingText.color = Color.yellow;
-            if (time <= 35) _pingText.color = Color.green;
+            else if (time <= 100) _pingText.color = Color.yellow;
+            else _pingText.color = Color.red;
             _pingText.text = $"{time} ms";
         }
 
