@@ -30,11 +30,15 @@ namespace Overworld
 
         private void LagInputChanged(string amount)
         {
-            try
+            int result;
+            if (Int32.TryParse(amount, out result))
             {
-                MsDelay = Int32.Parse(amount);
+                MsDelay = result;
             }
-            catch { }
+            else
+            {
+                MsDelay = 0;
+            }
         }
 
         private void ShowNetcodeMenu()

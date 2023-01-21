@@ -2176,7 +2176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba423136686e22e44b1fa39fb5c18255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PingIp: 159.223.16.231
+  PingIp: 127.0.0.1
   IsWrongVersion: 0
 --- !u!114 &1307219405
 MonoBehaviour:
@@ -2228,7 +2228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b42ec951e4badf4c9f00102b8b5b4d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loginIp: 159.223.16.231
+  _loginIp: 127.0.0.1
   GameVersion: 1.0.0
 --- !u!1 &1358937929
 GameObject:
