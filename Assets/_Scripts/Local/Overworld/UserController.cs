@@ -56,7 +56,7 @@ namespace Overworld
             _latestServerState = new PlayerState();
             _lastProcessedState = _latestServerState;
 
-            _gravity *= Time.fixedDeltaTime * Time.fixedDeltaTime;
+            _gravity *= _minTimeBetweenTicks * _minTimeBetweenTicks;
             _moveSpeed *= _minTimeBetweenTicks;
             _jumpSpeed *= _minTimeBetweenTicks;
 
@@ -100,21 +100,23 @@ namespace Overworld
         }
 
         private void FixedUpdate()
-        {
-            _grounded = _characterController.isGrounded;
-            if (!_grounded)
-            {
-                HandleGravity();
-                _grounded = _characterController.isGrounded;
-                PlayerAnimationController.AnimationUpdate(_grounded, _leftRightDirection, _forwardDirection, ref _animationState, _animator);
-            }
-            if (_grounded) _yVelocity = 0;
-
+        {      
             _timer += Time.deltaTime;
 
             while (_timer >= _minTimeBetweenTicks)
             {
                 _timer -= _minTimeBetweenTicks;
+
+                _grounded = _characterController.isGrounded;
+                if (!_grounded)
+                {
+                    HandleGravity();
+                    _grounded = _characterController.isGrounded;
+                    if(_timer < _minTimeBetweenTicks)
+                    PlayerAnimationController.AnimationUpdate(_grounded, _leftRightDirection, _forwardDirection, ref _animationState, _animator);
+                }
+                if (_grounded) _yVelocity = 0;
+
                 HandleTick();
                 _currentTick++;
                 _currentTick = _currentTick % _bufferSize;
